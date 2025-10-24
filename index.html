@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Carnê Digital – ANA MARIA DOS SANTOS</title>
+<style>
+:root{--blue:#0b2b4a;--pix:#37b7a1;--muted:#6b7280;--bg:#f6f7f9;--border:#e6eaf0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Helvetica Neue",Arial;color:#0f172a}
+.wrap{max-width:900px;margin:5vh auto;padding:0 14px}
+.card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(10,20,40,.08);overflow:hidden}
+.header{background:var(--blue);color:#fff;padding:18px 22px}
+.header h1{margin:0 0 6px;font-size:20px;letter-spacing:.4px}
+.header p{margin:0;font-size:13px;opacity:.95}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px 18px;border-bottom:1px solid var(--border)}
+.summary .box{background:#fbfcfe;border:1px solid var(--border);border-radius:12px;padding:12px 12px}
+.summary .box .label{font-size:12px;color:#475569}
+.summary .box .value{font-size:16px;font-weight:700;margin-top:3px}
+.table{padding:8px 18px 18px}
+table{width:100%;border-collapse:separate;border-spacing:0 10px}
+th,td{text-align:left;padding:12px 14px}th{font-size:12px;color:#475569}
+tr.item{background:#fbfcfe;border:1px solid var(--border)}
+tr.item td:first-child{border-top-left-radius:10px;border-bottom-left-radius:10px}
+tr.item td:last-child{border-top-right-radius:10px;border-bottom-right-radius:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-size:12px;line-height:1}
+.badge.pago{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.badge.pendente{background:#f8fafc;color:#334155;border:1px solid #e2e8f0}
+.icon.hourglass{display:inline-block;transform-origin:50% 55%;animation:hourflip 4s ease-in-out infinite;margin-right:6px}
+@keyframes hourflip{0%{transform:rotate(0deg)}40%{transform:rotate(0deg)}50%{transform:rotate(180deg)}90%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+.footer{padding:14px 18px;color:#6b7280;font-size:12px;border-top:1px solid var(--border)}
+.note{padding:12px 18px;color:#6b7280;font-size:13px;line-height:1.45}
+
+/* PIX button aprovado (texto verde, borda azul, shimmer, ícone inline) */
+.pix-btn{-webkit-tap-highlight-color:transparent;appearance:none;border:2px solid var(--blue);background:#fff;color:var(--pix);
+  border-radius:14px;padding:10px 16px;font-weight:800;letter-spacing:.2px;display:inline-flex;align-items:center;gap:12px;position:relative;overflow:hidden;
+  text-decoration:none;user-select:none}
+.pix-btn:focus-visible{outline:3px solid color-mix(in srgb, var(--blue) 35%, white);outline-offset:3px}
+.pix-btn span{position:relative;z-index:1}
+.pix-btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 0%,rgba(55,183,161,.10) 25%,rgba(55,183,161,.28) 40%,rgba(55,183,161,.10) 60%,transparent 100%);
+  background-size:220% 100%;animation:shimmer 5.5s linear infinite;pointer-events:none}
+@keyframes shimmer{0%{background-position:220% 0}100%{background-position:-220% 0}}
+.pix-btn:hover{transform:translateY(-1px)}
+.pix-btn:active{transform:translateY(0)}
+.pix-ico{display:inline-flex;align-items:center;justify-content:center}
+.pix-ico svg{height:18px;width:auto;display:block}
+.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+
+/* Mobile: botão centralizado abaixo de cada parcela */
+@media (max-width: 680px){
+  .summary{grid-template-columns:1fr 1fr}
+  .table table, .table tbody, .table tr.item{display:block;width:100%}
+  .table thead{display:none}
+  .table tr.item{border-radius:14px;overflow:hidden}
+  .table tr.item td{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border:0}
+  .table tr.item td::before{content:attr(data-label);font-size:12px;color:#475569}
+  .table tr.item td.actions{display:block;text-align:center;padding:8px 12px 14px}
+  .pix-btn{width:min(420px,100%);justify-content:center}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" role="main" aria-label="Carnê Digital do Cliente">
+    <div class="header">
+      <h1>⚖️ Dr. Rodolpho Netto – Carnê Digital</h1>
+      <p>Cliente: <b id="nome"></b> • CPF: <span id="cpf"></span></p>
+      <p>Serviço: <i id="servico"></i></p>
+    </div>
+    <div class="summary">
+      <div class="box"><div class="label">Valor total</div><div class="value" id="total"></div></div>
+      <div class="box"><div class="label">Entrada</div><div class="value" id="entrada"></div></div>
+      <div class="box"><div class="label">Saldo</div><div class="value" id="saldo"></div></div>
+      <div class="box"><div class="label">Parcelas</div><div class="value" id="qtd"></div></div>
+    </div>
+    <div class="table">
+      <table>
+        <thead><tr><th>Parcela</th><th>Vencimento</th><th>Valor</th><th>Status</th><th style="text-align:right">Ação</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="note">
+      Toque em <b>Pagar com PIX</b> para abrir a tela do PIX. Após o pagamento, envie o comprovante pelo WhatsApp do escritório.
+    </div>
+    <div class="footer">© Dr. Rodolpho Netto – Advogado.</div>
+  </div>
+</div>
+
+<script>
+// Dados locais base (layout aprovado)
+const DATA = {"cliente":"ANA MARIA DOS SANTOS","cpf":"047.802.037-67",
+  "servico":"Concessão de Pensão por Morte Previdenciária (honorários)",
+  "total":8000.0,"entrada_valor":1000.0,"entrada_data":"15/10/2025",
+  "parcelas":[
+    {"n":1,"venc":"15/11/2025","valor":466.66,"status":"Em aberto"},
+    {"n":2,"venc":"15/12/2025","valor":466.66,"status":"Em aberto"},
+    {"n":3,"venc":"15/01/2026","valor":466.66,"status":"Em aberto"},
+    {"n":4,"venc":"15/02/2026","valor":466.66,"status":"Em aberto"},
+    {"n":5,"venc":"15/03/2026","valor":466.66,"status":"Em aberto"},
+    {"n":6,"venc":"15/04/2026","valor":466.66,"status":"Em aberto"},
+    {"n":7,"venc":"15/05/2026","valor":466.66,"status":"Em aberto"},
+    {"n":8,"venc":"15/06/2026","valor":466.66,"status":"Em aberto"},
+    {"n":9,"venc":"15/07/2026","valor":466.66,"status":"Em aberto"},
+    {"n":10,"venc":"15/08/2026","valor":466.66,"status":"Em aberto"},
+    {"n":11,"venc":"15/09/2026","valor":466.66,"status":"Em aberto"},
+    {"n":12,"venc":"15/10/2026","valor":466.66,"status":"Em aberto"},
+    {"n":13,"venc":"15/11/2026","valor":466.66,"status":"Em aberto"},
+    {"n":14,"venc":"15/12/2026","valor":466.66,"status":"Em aberto"},
+    {"n":15,"venc":"15/01/2027","valor":466.66,"status":"Em aberto"}
+  ],
+  "pix":"https://olive-dorree-73.tiiny.site"
+};
+
+const PIX_INLINE_SVG = '<span class="pix-ico" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path fill="#37b7a1" d="M32 2c1.6 0 3.1.6 4.2 1.8l24 24c2.4 2.4 2.4 6.2 0 8.6l-24 24c-2.3 2.3-6.1 2.3-8.4 0l-24-24c-2.4-2.4-2.4-6.2 0-8.6l24-24C28.9 2.6 30.4 2 32 2zM20 32l12 12 12-12-12-12-12 12z"/></svg></span>';
+
+const qs = (s)=> document.querySelector(s);
+const brl = (v)=> Number(v).toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+
+function render(d){
+  qs('#nome').textContent = d.cliente;
+  qs('#cpf').textContent = d.cpf;
+  qs('#servico').textContent = d.servico;
+  qs('#total').textContent = brl(d.total);
+  qs('#entrada').textContent = brl(d.entrada_valor) + " (paga em " + d.entrada_data + ")";
+  qs('#saldo').textContent = brl(d.total - d.entrada_valor);
+  qs('#qtd').textContent = d.parcelas.length + " × " + brl(d.parcelas[0].valor);
+
+  const tbody = qs('#rows'); tbody.innerHTML = "";
+  d.parcelas.forEach(p => {
+    const pago = (p.status||"").toLowerCase() === "pago";
+    const tr = document.createElement('tr'); tr.className = 'item';
+    let html = "";
+    html += "<td data-label='Parcela'>Parcela " + p.n + "</td>";
+    html += "<td data-label='Vencimento'>" + p.venc + "</td>";
+    html += "<td data-label='Valor'>" + brl(p.valor) + "</td>";
+    if (pago) {
+      html += "<td data-label='Status'><span class='badge pago'>✅ Pago</span></td>";
+    } else {
+      html += "<td data-label='Status'><span class='badge pendente'><span class='icon hourglass'>⏳</span> Em aberto</span></td>";
+    }
+    html += "<td class='actions' data-label='Ação' style='text-align:right'>";
+    if (!pago) {
+      html += "<div class='actions'>"
+           +  "<a class='pix-btn' href='" + d.pix + "' target='_blank' rel='noopener'>"
+           +     PIX_INLINE_SVG
+           +    "<span>Pagar com PIX</span>"
+           +  "</a>"
+           + "</div>";
+    }
+    html += "</td>";
+    tr.innerHTML = html;
+    tbody.appendChild(tr);
+  });
+}
+
+render(DATA);
+</script>
+
+// CSV published: lê e atualiza automaticamente
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQMCOoppU90ghUnXPcuMdbyS-oWaKxuPNae0_hFAbdrIYe_btIXLuHgdWOuBTQdkkGWvaSaKHwdy2wR/pub?gid=1004985753&single=true&output=csv";
+
+async function loadCSVandUpdate() {
+  try {
+    const response = await fetch(CSV_URL);
+    const csvText = await response.text();
+    const lines = csvText.trim().split('\n');
+    const headers = lines[0].split(',');
+
+    const idxParcela = headers.findIndex(h => /parcela/i.test(h) || h === '#');
+    const idxVenc    = headers.findIndex(h => /venc/i.test(h));
+    const idxValor   = headers.findIndex(h => /valor/i.test(h));
+    const idxStatus  = headers.findIndex(h => /status/i.test(h));
+
+    const parcelas = [];
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); // Split CSV, ignoring commas inside quotes
+      const n       = parseInt(cols[idxParcela]);
+      const venc    = cols[idxVenc];
+      const valor   = parseFloat((cols[idxValor]||'').replace(/[^\d,]/g, '').replace(',', '.')); // Remove tudo exceto dígitos e vírgula, e substitui vírgula por ponto.
+      const status  = cols[idxStatus];
+      if(!isNaN(n)) parcelas.push({ n, venc, valor, status });
+    }
+
+    const primeiraLinha = (lines[1]||'').split(',');
+    if (primeiraLinha.length >= 3) {
+      DATA.cliente = primeiraLinha[0] || DATA.cliente;
+      DATA.cpf     = primeiraLinha[1] || DATA.cpf;
+      DATA.servico = primeiraLinha[2] || DATA.servico;
+    }
+    DATA.parcelas = parcelas;
+
+    const totalParcelas = parcelas.reduce((soma, p) => soma + (p.valor||0), 0);
+    DATA.total = totalParcelas + (DATA.entrada_valor || 0);
+
+    render(DATA);
+  } catch (err) {
+    console.error("Erro ao carregar o CSV:", err);
+  }
+}
+
+loadCSVandUpdate();
+</script>
+</body>
+</html>

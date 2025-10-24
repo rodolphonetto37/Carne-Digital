@@ -1,0 +1,52 @@
+{"time":"2025-10-24T18:05:19.506149948-04:00","level":"INFO","msg":"Sentry initialized","dsn":"https://962d173a894d***","environment":"PROD","release":"5.2.20","sandbox_id":"ipdf2kdzj12dypykuo1e4"}
+{"time":"2025-10-24T18:05:19.508754795-04:00","level":"INFO","msg":"Sentry initialized successfully"}
+{"time":"2025-10-24T18:05:19.508769268-04:00","level":"INFO","msg":"State sync started","log_file":"/home/ubuntu/.logs/state-sync/state-sync.log"}
+{"time":"2025-10-24T18:05:19.509201131-04:00","level":"INFO","msg":"Pulling state from remote storage"}
+{"time":"2025-10-24T18:05:19.6003962-04:00","level":"INFO","msg":"Successfully pulled state from remote storage","etag":"\"bfab8421ed12b14f7b86d47404d9e0b2\""}
+{"time":"2025-10-24T18:05:19.710470375-04:00","level":"INFO","msg":"Created hidden target for cookie sync","targetID":"67312AD6541DEA2B4128AD476A05F155"}
+{"time":"2025-10-24T18:05:19.743616405-04:00","level":"INFO","msg":"Successfully set cookie","name":"_cfuvid","domain":".softswiss.com"}
+{"time":"2025-10-24T18:05:19.743972356-04:00","level":"INFO","msg":"Successfully set cookie","name":"__cf_bm","domain":".twitter.com"}
+{"time":"2025-10-24T18:05:19.744194533-04:00","level":"INFO","msg":"Successfully set cookie","name":"888Cookie","domain":".888casino.com"}
+{"time":"2025-10-24T18:05:19.744411703-04:00","level":"INFO","msg":"Successfully set cookie","name":"888TestData","domain":".888casino.com"}
+{"time":"2025-10-24T18:05:19.744621872-04:00","level":"INFO","msg":"Successfully set cookie","name":"888TestDataLocal","domain":".888casino.com"}
+{"time":"2025-10-24T18:05:19.74486882-04:00","level":"INFO","msg":"Successfully set cookie","name":"__cf_bm","domain":".bet365.bet.br"}
+{"time":"2025-10-24T18:05:19.745073686-04:00","level":"INFO","msg":"Successfully set cookie","name":"__cf_bm","domain":".cdnppb.net"}
+{"time":"2025-10-24T18:05:19.745788599-04:00","level":"INFO","msg":"Successfully set cookie","name":"_cfuvid","domain":".kaizengaming.com"}
+{"time":"2025-10-24T18:05:19.748362178-04:00","level":"INFO","msg":"Successfully set cookie","name":"PHPSESSID","domain":"securityleaders.com.br"}
+{"time":"2025-10-24T18:05:19.748783867-04:00","level":"INFO","msg":"Successfully set cookie","name":"AEC","domain":".google.com"}
+{"time":"2025-10-24T18:05:19.74919753-04:00","level":"INFO","msg":"Successfully set cookie","name":"NID","domain":".google.com"}
+{"time":"2025-10-24T18:05:19.749496793-04:00","level":"INFO","msg":"Successfully set cookie","name":"cf_clearance","domain":".luva.bet.br"}
+{"time":"2025-10-24T18:05:19.749906608-04:00","level":"INFO","msg":"Successfully set cookie","name":"AdoptConsent","domain":".netrin.com.br"}
+{"time":"2025-10-24T18:05:19.750228851-04:00","level":"INFO","msg":"Successfully set cookie","name":"AdoptVisitorId","domain":".netrin.com.br"}
+{"time":"2025-10-24T18:05:19.750515574-04:00","level":"INFO","msg":"Successfully set cookie","name":"USER_AGENT","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.750797243-04:00","level":"INFO","msg":"Successfully set cookie","name":"BROWSER_NAME","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.751051247-04:00","level":"INFO","msg":"Successfully set cookie","name":"BROWSER_VERSION","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.751260364-04:00","level":"INFO","msg":"Successfully set cookie","name":"DEVICE","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.751556879-04:00","level":"INFO","msg":"Successfully set cookie","name":"IP","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.751828946-04:00","level":"INFO","msg":"Successfully set cookie","name":"OS_VERSION","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.752080972-04:00","level":"INFO","msg":"Successfully set cookie","name":"DEVICE_TYPE","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.752306135-04:00","level":"INFO","msg":"Successfully set cookie","name":"FINGERPRINT","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.752574018-04:00","level":"INFO","msg":"Successfully set cookie","name":"LOCALE","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.752823786-04:00","level":"INFO","msg":"Successfully set cookie","name":"OS","domain":".up.bet.br"}
+{"time":"2025-10-24T18:05:19.753066112-04:00","level":"INFO","msg":"Successfully set cookie","name":"__smartico_ls_create_t","domain":"up.bet.br"}
+{"time":"2025-10-24T18:05:19.75332514-04:00","level":"INFO","msg":"Successfully set cookie","name":"__smartico_ls_id","domain":"up.bet.br"}
+{"time":"2025-10-24T18:05:19.753596928-04:00","level":"INFO","msg":"Successfully set cookie","name":"__smartico_ls_use_t","domain":"up.bet.br"}
+{"time":"2025-10-24T18:05:19.753871068-04:00","level":"INFO","msg":"Successfully set cookie","name":"_ad_token","domain":"up.bet.br"}
+{"time":"2025-10-24T18:05:19.754150577-04:00","level":"INFO","msg":"Successfully set cookie","name":"_GRECAPTCHA","domain":"www.google.com"}
+{"time":"2025-10-24T18:05:19.754425283-04:00","level":"INFO","msg":"Successfully set cookie","name":"Encrypted-Local-Storage-Key","domain":"www.gov.br"}
+{"time":"2025-10-24T18:05:19.754662983-04:00","level":"INFO","msg":"Successfully set cookie","name":"lgpd-cookie-v2","domain":"www.gov.br"}
+{"time":"2025-10-24T18:05:19.754849531-04:00","level":"INFO","msg":"Successfully set cookie","name":"PHPSESSID","domain":"www.softswiss.com"}
+{"time":"2025-10-24T18:05:19.755031602-04:00","level":"INFO","msg":"Successfully set cookie","name":"AdoptConsent","domain":".bet.br"}
+{"time":"2025-10-24T18:05:19.755200757-04:00","level":"INFO","msg":"Successfully set cookie","name":"AdoptVisitorId","domain":".bet.br"}
+{"time":"2025-10-24T18:05:19.755358829-04:00","level":"INFO","msg":"Successfully set cookie","name":"__cf_bm","domain":".betfair.bet.br"}
+{"time":"2025-10-24T18:05:19.755542913-04:00","level":"INFO","msg":"Successfully set cookie","name":"cookieconsent_status_ANALYTICS","domain":".securityleaders.com.br"}
+{"time":"2025-10-24T18:05:19.755725707-04:00","level":"INFO","msg":"Successfully set cookie","name":"cookieconsent_status_ESSENTIAL","domain":".securityleaders.com.br"}
+{"time":"2025-10-24T18:05:19.755887084-04:00","level":"INFO","msg":"Successfully set cookie","name":"cookieconsent_status_MARKETING","domain":".securityleaders.com.br"}
+{"time":"2025-10-24T18:05:19.756062172-04:00","level":"INFO","msg":"Successfully set cookie","name":"cookieconsent_status_PERSONALIZATION","domain":".securityleaders.com.br"}
+{"time":"2025-10-24T18:05:19.756228676-04:00","level":"INFO","msg":"Successfully set cookie","name":"cookieconsent_status_UNCATEGORIZED","domain":".securityleaders.com.br"}
+{"time":"2025-10-24T18:05:19.756438467-04:00","level":"INFO","msg":"Successfully set cookie","name":"lastproduct","domain":"www.888casino.com"}
+{"time":"2025-10-24T18:05:19.756455914-04:00","level":"WARN","msg":"Failed to close hidden target","error":"to close the target, cancel its context or use chromedp.Cancel"}
+{"time":"2025-10-24T18:05:19.757091809-04:00","level":"INFO","msg":"Initial cookie sync completed, marker file created","path":"/home/ubuntu/.config/state-sync/.sync-ready"}
+{"time":"2025-10-24T18:05:19.757135446-04:00","level":"INFO","msg":"Watching targets"}
+{"time":"2025-10-24T18:05:19.881227405-04:00","level":"INFO","msg":"Initial target found","targetID":"B8B55DEE218B5596BEC68CF24493909E"}
+{"time":"2025-10-24T18:05:19.88237504-04:00","level":"INFO","msg":"Target info changed","targetID":"B8B55DEE218B5596BEC68CF24493909E"}
