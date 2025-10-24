@@ -3,7 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Carnê Digital – ANA MARIA DOS SANTOS</title>
+<title>Carnê Digital | Dr. Rodolpho Netto</title>
+<meta property="og:title" content="Carnê Digital | Dr. Rodolpho Netto" />
+<meta property="og:description" content="Acesse seu carnê de honorários, visualize parcelas, datas de vencimento e pague com PIX." />
+<meta property="og:image" content="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028332558/NURUJikTgHVJynel.png" />
+<meta property="og:url" content="https://rodolphonetto37.github.io/Carne-Digital/" />
+<meta property="og:type" content="website" />
 <style>
 :root{--blue:#0b2b4a;--pix:#37b7a1;--muted:#6b7280;--bg:#f6f7f9;--border:#e6eaf0}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Helvetica Neue",Arial;color:#0f172a}
@@ -74,7 +79,7 @@ tr.item td:last-child{border-top-right-radius:10px;border-bottom-right-radius:10
     </div>
     <div class="table">
       <table>
-        <thead><tr><th>Parcela</th><th>Vencimento</th><th>Valor</th><th>Status</th><th style="text-align:right">Ação</th></tr></thead>
+        <thead><tr><th>Parcela</th><th>Vencimento</th><th>Valor</th><th>Status</th><th style="text-align:right"></th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
@@ -89,7 +94,7 @@ tr.item td:last-child{border-top-right-radius:10px;border-bottom-right-radius:10
 // Dados locais base (layout aprovado)
 const DATA = {"cliente":"ANA MARIA DOS SANTOS","cpf":"047.802.037-67",
   "servico":"Concessão de Pensão por Morte Previdenciária (honorários)",
-  "total":8000.0,"entrada_valor":1000.0,"entrada_data":"15/10/2025",
+  "total":8000.0,"entrada_valor":1000.0,"entrada_data":"15/10/2025","saldo_inicial":7000.0,
   "parcelas":[
     {"n":1,"venc":"15/11/2025","valor":466.66,"status":"Em aberto"},
     {"n":2,"venc":"15/12/2025","valor":466.66,"status":"Em aberto"},
@@ -121,7 +126,8 @@ function render(d){
   qs('#servico').textContent = d.servico;
   qs('#total').textContent = brl(d.total);
   qs('#entrada').textContent = brl(d.entrada_valor) + " (paga em " + d.entrada_data + ")";
-  qs('#saldo').textContent = brl(d.total - d.entrada_valor);
+    const valorPago = d.parcelas.filter(p => (p.status||"").toLowerCase() === "pago").reduce((soma, p) => soma + (p.valor||0), 0);
+  qs('#saldo').textContent = brl(d.saldo_inicial - valorPago);
   qs('#qtd').textContent = d.parcelas.length + " × " + brl(d.parcelas[0].valor);
 
   const tbody = qs('#rows'); tbody.innerHTML = "";
@@ -137,7 +143,7 @@ function render(d){
     } else {
       html += "<td data-label='Status'><span class='badge pendente'><span class='icon hourglass'>⏳</span> Em aberto</span></td>";
     }
-    html += "<td class='actions' data-label='Ação' style='text-align:right'>";
+    html += "<td class='actions' style='text-align:right'>";
     if (!pago) {
       html += "<div class='actions'>"
            +  "<a class='pix-btn' href='" + d.pix + "' target='_blank' rel='noopener'>"
@@ -155,7 +161,7 @@ function render(d){
 render(DATA);
 </script>
 
-// CSV published: lê e atualiza automaticamente
+
 <script>
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQMCOoppU90ghUnXPcuMdbyS-oWaKxuPNae0_hFAbdrIYe_btIXLuHgdWOuBTQdkkGWvaSaKHwdy2wR/pub?gid=1004985753&single=true&output=csv";
 
@@ -190,7 +196,12 @@ async function loadCSVandUpdate() {
     DATA.parcelas = parcelas;
 
     const totalParcelas = parcelas.reduce((soma, p) => soma + (p.valor||0), 0);
-    DATA.total = totalParcelas + (DATA.entrada_valor || 0);
+    // DATA.total = 8000.0; // O total é fixo em 8000.0 conforme o cliente.
+	    // DATA.saldo_inicial = 7000.0; // O saldo inicial é fixo em 7000.0 conforme o cliente.
+	    // A soma das parcelas e entrada deve ser igual ao total, mas o cliente quer valores fixos.
+	    // Para garantir que o total seja 8000.0 e o saldo inicial 7000.0, vamos apenas garantir que os dados locais sejam usados.
+	    // DATA.total = 8000.0; // Já definido no objeto DATA
+	    // DATA.saldo_inicial = 7000.0; // Já definido no objeto DATA
 
     render(DATA);
   } catch (err) {
